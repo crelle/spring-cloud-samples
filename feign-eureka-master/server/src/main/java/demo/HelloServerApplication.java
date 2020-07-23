@@ -21,11 +21,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class HelloServerApplication {
 	@Autowired
 	DiscoveryClient client;
-
+			
 	@RequestMapping("/")
 	public String hello() {
 		List<ServiceInstance> instances = client.getInstances("HelloServer");
+
 		ServiceInstance selectedInstance = instances.get(new Random().nextInt(instances.size()));
+		
 		return "Hello World: " + selectedInstance.getServiceId() + ":" + selectedInstance
 				.getHost() + ":" + selectedInstance.getPort();
 	}
